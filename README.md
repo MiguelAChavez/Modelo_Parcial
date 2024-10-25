@@ -1,5 +1,4 @@
 # Tercer Modelo de Parcial
-
 ---
 
 # 🚗 Sistema de Gestión para Taller de Reparación de Vehículos
@@ -29,7 +28,7 @@ Este proyecto consiste en el desarrollo de un sistema para gestionar un taller d
 
 ## 📦 Estructura del Proyecto
 
-### 1. **Clase Vehiculo (Abstracta)**
+### 1. **Clase Vehiculo (Abstracta)** 🚗🚕🚙
 
 - **Atributos**:
     - `codigoVehiculo`: Código único de 7 caracteres del vehículo (validado con excepción).
@@ -37,12 +36,16 @@ Este proyecto consiste en el desarrollo de un sistema para gestionar un taller d
     - `precioBase`: Precio base del servicio de reparación.
     - `estado`: Estado actual del vehículo (`DISPONIBLE`, `EN_REPARACION`, `FUERA_DE_SERVICIO`).
     - `historialReparaciones`: Lista de reparaciones con el formato `YYYY-MM-DD: [NombreTaller] Descripción`.
-  
+    - `Set<String> codigosVehiculos`: Conjunto estático que almacena todos los códigos de vehículos existentes para evitar duplicados.
 - **Métodos**:
     - `calcularCostoReparacion(int horas)`: Método abstracto que calculará el costo de reparación.
     - `iniciarReparacion(String nombreTaller, String descripcion)`: Inicia una reparación y actualiza el historial.
     - `finalizarReparacion()`: Finaliza una reparación y actualiza el historial.
     - `obtenerHistorialReparaciones()`: Retorna el historial de reparaciones.
+- **Métodos Privados**:
+    - `sonValidos(String... parametros)`: Valida que los parámetros pasados no sean nulos, vacíos o contengan solo espacios. Si alguna validación falla, lanza una excepción.
+    - `private void codigoValido(String codVehiculo)`: Valida que el código del vehículo tenga exactamente 7 caracteres. Si la validación falla, lanza una excepción.
+    - `private void agregarCodVehiculo(String codVehiculo)`: Agrega el código del vehículo al conjunto de códigos existentes. Si el código ya existe, lanza una excepción.
 
 ### 2. **Subclase VehiculoCompacto**
 
@@ -62,7 +65,7 @@ Este proyecto consiste en el desarrollo de un sistema para gestionar un taller d
     - `calcularCostoReparacion(int horas)`: Calcula el costo de reparación con un incremento del 10% si el vehículo tiene tracción integral.
     - `esTraccionIntegral()`: Retorna true si el vehículo tiene tracción integral.
 
-### 4. **Clase Taller**
+### 4. **Clase Taller** 🔧
 
 - **Atributos**:
     - `nombreTaller`: Nombre del taller.
@@ -76,5 +79,8 @@ Este proyecto consiste en el desarrollo de un sistema para gestionar un taller d
     - `iniciarReparacion(String codigoVehiculo, String descripcion)`: Inicia la reparación de un vehículo.
     - `finalizarReparacion(String codigoVehiculo)`: Finaliza la reparación de un vehículo.
     - `traerVehiculosDisponibles()`: Retorna una lista de vehículos disponibles.
+    - `traerVehiculo(String codigoVehiculo)`: Retorna un Vehiculo por su código identificador.
     - `traerVehiculos(EstadoVehiculo estado)`: Retorna una lista de vehículos según su estado.
     - `obtenerHistorialReparaciones(String codigoVehiculo)`: Retorna el historial de reparaciones de un vehículo.
+    - `mostrarVehiculosEnReparacion()`: Muestra los vehiculos del inventario de reparación.
+    - `validarParametro(String parametro, String mensaje)`: Genera una excepcion si el parametro no es valido.
